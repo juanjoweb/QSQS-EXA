@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QSQS HTML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 30px;
+      background: #f4f6fb;
+      color: #222;
+    }
+
+    .contenedor {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 28px;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 2rem;
+    }
+
+    .subtitulo {
+      margin-top: -6px;
+      margin-bottom: 18px;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .barra-bloque {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      padding: 12px 14px;
+      background: #f7f8fc;
+      border: 1px solid #d9deea;
+      border-radius: 10px;
+    }
+
+    .barra-bloque label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #243b7a;
+    }
+
+    .barra-bloque select {
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid #bcc6e0;
+      font-size: 14px;
+      min-width: 220px;
+      background: white;
+    }
+
+    .superior {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .codigo {
+      display: inline-block;
+      background: #eef2ff;
+      color: #243b7a;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .progreso {
+      font-size: 14px;
+      color: #555;
+      background: #f3f3f3;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+
+    .marcador {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .tarjeta-marcador {
+      background: #f7f8fc;
+      border: 1px solid #d9deea;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .pregunta {
+      font-size: 1.08rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .pregunta img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 12px auto;
+      border-radius: 8px;
+    }
+
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .opcion {
+      border: 2px solid #d9deea;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fafbff;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .opcion:hover {
+      transform: translateY(-2px);
+      border-color: #8ea2d9;
+      background: #f4f7ff;
+    }
+
+    .opcion h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .opcion img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: white;
+      display: block;
+    }
+
+    .texto-opcion {
+      background: #ffffff;
+      border: 1px solid #d9deea;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .correcta {
+      border-color: #2e9e5b !important;
+      background: #edf9f1 !important;
+    }
+
+    .incorrecta {
+      border-color: #d64545 !important;
+      background: #fff1f1 !important;
+    }
+
+    .bloqueada {
+      pointer-events: none;
+      opacity: 0.96;
+    }
+
+    .panel {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      display: none;
+    }
+
+    .panel.ok {
+      background: #edf9f1;
+      border-left: 5px solid #2e9e5b;
+      color: #1f6d3f;
+    }
+
+    .panel.error {
+      background: #fff1f1;
+      border-left: 5px solid #d64545;
+      color: #992f2f;
+    }
+
+    .panel.info {
+      background: #eef2ff;
+      border-left: 5px solid #243b7a;
+      color: #243b7a;
+    }
+
+    .acciones {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      background: #243b7a;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background: #1a2d5e;
+    }
+
+    button:disabled {
+      background: #a8b3d1;
+      cursor: not-allowed;
+    }
+
+    .info {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #555;
+      background: #f7f7f7;
+      padding: 12px 14px;
+      border-radius: 8px;
+    }
+
+    .cargando {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .opciones {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1 id="tituloApp">QSQS HTML</h1>
+    <div id="subtituloBloque" class="subtitulo"></div>
+
+    <div class="barra-bloque">
+      <label for="selectorBloque">Bloque activo:</label>
+      <select id="selectorBloque"></select>
+      <button onclick="cambiarBloque()">Cargar bloque</button>
+    </div>
+
+    <div id="zonaCarga" class="cargando">Cargando bloque de preguntas...</div>
+
+    <div id="app" style="display:none;">
+      <div class="superior">
+        <div id="codigo" class="codigo"></div>
+        <div id="progreso" class="progreso"></div>
+      </div>
+
+      <div class="marcador">
+        <div class="tarjeta-marcador">Respondidas: <strong id="respondidas">0</strong></div>
+        <div class="tarjeta-marcador">Aciertos: <strong id="aciertos">0</strong></div>
+        <div class="tarjeta-marcador">Pendientes: <strong id="pendientes">0</strong></div>
+      </div>
+
+      <div id="pregunta" class="pregunta"></div>
+      <div id="opciones" class="opciones"></div>
+      <div id="mensaje" class="panel"></div>
+
+      <div class="acciones">
+        <button onclick="anteriorPregunta()" id="btnAnterior">Anterior</button>
+        <button onclick="siguientePregunta()" id="btnSiguiente">Siguiente</button>
+        <button onclick="reiniciarIntentoPregunta()">Reintentar esta pregunta</button>
+        <button onclick="mostrarRespuesta()">Mostrar correcta</button>
+        <button onclick="reiniciarTodo()">Reiniciar todo</button>
+      </div>
+
+      <div class="info">
+        Esta versión ya funciona por bloques. Cuando exista otro archivo como <strong>js/mat3.js</strong>, se podrá cargar desde este selector.
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script>
+    let motorActivo = null;
+    let scriptBancoActual = null;
+
+    function poblarSelectorBloques() {
+      const selector = document.getElementById("selectorBloque");
+      selector.innerHTML = "";
+
+      window.APP_CONFIG.bloques.forEach(bloque => {
+        const option = document.createElement("option");
+        option.value = bloque.id;
+        option.textContent = bloque.nombre;
+        selector.appendChild(option);
+      });
+
+      const guardado = localStorage.getItem("qsqs_bloque_activo");
+      const inicial = guardado || window.APP_CONFIG.bloqueInicial || window.APP_CONFIG.bloques[0].id;
+      selector.value = inicial;
+    }
+
+    function obtenerBloqueSeleccionado() {
+      const selector = document.getElementById("selectorBloque");
+      return window.APP_CONFIG.bloques.find(b => b.id === selector.value);
+    }
+
+    function cargarScript(src) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src + "?v=" + Date.now();
+        script.onload = () => resolve(script);
+        script.onerror = () => reject(new Error(`No se pudo cargar: ${src}`));
+        document.body.appendChild(script);
+      });
+    }
+
+    async function cargarBloque() {
+      try {
+        document.getElementById("tituloApp").textContent = window.APP_CONFIG?.tituloApp || "QSQS HTML";
+        document.getElementById("app").style.display = "none";
+        document.getElementById("zonaCarga").style.display = "block";
+        document.getElementById("zonaCarga").innerHTML = "Cargando bloque de preguntas...";
+
+        const bloque = obtenerBloqueSeleccionado();
+        if (!bloque) {
+          throw new Error("No se encontró el bloque seleccionado.");
+        }
+
+        localStorage.setItem("qsqs_bloque_activo", bloque.id);
+        document.getElementById("subtituloBloque").textContent = "Bloque cargado: " + bloque.nombre;
+
+        window.bancoPreguntas = undefined;
+
+        if (scriptBancoActual) {
+          scriptBancoActual.remove();
+          scriptBancoActual = null;
+        }
+
+        scriptBancoActual = await cargarScript(bloque.archivoBanco);
+
+        if (!window.bancoPreguntas || !Array.isArray(window.bancoPreguntas) || window.bancoPreguntas.length === 0) {
+          throw new Error("El banco de preguntas no está disponible o está vacío.");
+        }
+
+        document.getElementById("zonaCarga").style.display = "none";
+        document.getElementById("app").style.display = "block";
+
+        arrancarMotor();
+      } catch (error) {
+        document.getElementById("app").style.display = "none";
+        document.getElementById("zonaCarga").style.display = "block";
+        document.getElementById("zonaCarga").innerHTML =
+          `<strong>Error al cargar el bloque.</strong><br>${error.message}`;
+      }
+    }
+
+    function arrancarMotor() {
+      let indiceActual = 0;
+      let estadoPreguntas = window.bancoPreguntas.map(() => ({
+        seleccion: null,
+        modo: null
+      }));
+
+      const codigoEl = document.getElementById("codigo");
+      const progresoEl = document.getElementById("progreso");
+      const preguntaEl = document.getElementById("pregunta");
+      const opcionesEl = document.getElementById("opciones");
+      const mensajeEl = document.getElementById("mensaje");
+      const btnAnterior = document.getElementById("btnAnterior");
+      const btnSiguiente = document.getElementById("btnSiguiente");
+
+      const respondidasEl = document.getElementById("respondidas");
+      const aciertosEl = document.getElementById("aciertos");
+      const pendientesEl = document.getElementById("pendientes");
+
+      function obtenerPreguntaActual() {
+        return window.bancoPreguntas[indiceActual];
+      }
+
+      function obtenerEstadoActual() {
+        return estadoPreguntas[indiceActual];
+      }
+
+      function contarRespondidas() {
+        return estadoPreguntas.filter(e => e.modo === "respondida").length;
+      }
+
+      function contarAciertos() {
+        let total = 0;
+        estadoPreguntas.forEach((estado, i) => {
+          if (
+            estado.modo === "respondida" &&
+            estado.seleccion !== null &&
+            window.bancoPreguntas[i].opciones[estado.seleccion].correcta
+          ) {
+            total++;
+          }
+        });
+        return total;
+      }
+
+      function actualizarMarcador() {
+        const respondidas = contarRespondidas();
+        const aciertos = contarAciertos();
+        const pendientes = window.bancoPreguntas.length - respondidas;
+
+        respondidasEl.textContent = respondidas;
+        aciertosEl.textContent = aciertos;
+        pendientesEl.textContent = pendientes;
+      }
+
+      function renderizarPregunta() {
+        const preguntaActual = obtenerPreguntaActual();
+
+        codigoEl.textContent = `${preguntaActual.codigo} · Pregunta ${preguntaActual.numero}`;
+        progresoEl.textContent = `Pregunta ${indiceActual + 1} de ${window.bancoPreguntas.length}`;
+        preguntaEl.innerHTML = preguntaActual.enunciado;
+        opcionesEl.innerHTML = "";
+
+        preguntaActual.opciones.forEach((opcion, index) => {
+          const div = document.createElement("div");
+          div.className = "opcion";
+          div.dataset.correcta = opcion.correcta ? "true" : "false";
+          div.dataset.index = index;
+
+          let contenido = `<h3>${opcion.texto}</h3>`;
+
+          if (opcion.imagen) {
+            contenido += `<img src="${opcion.imagen}" alt="${opcion.texto}">`;
+          }
+
+          if (opcion.textoHtml) {
+            contenido += `<div class="texto-opcion">${opcion.textoHtml}</div>`;
+          }
+
+          div.innerHTML = contenido;
+          div.addEventListener("click", () => seleccionarOpcion(index));
+          opcionesEl.appendChild(div);
+        });
+
+        restaurarEstadoPregunta();
+        btnAnterior.disabled = indiceActual === 0;
+        btnSiguiente.disabled = indiceActual === window.bancoPreguntas.length - 1;
+        actualizarMarcador();
+      }
+
+      function seleccionarOpcion(indiceOpcion) {
+        const estado = obtenerEstadoActual();
+        if (estado.modo !== null) return;
+
+        estado.seleccion = indiceOpcion;
+        estado.modo = "respondida";
+
+        restaurarEstadoPregunta();
+        actualizarMarcador();
+        revisarFinal();
+      }
+
+      function restaurarEstadoPregunta() {
+        const preguntaActual = obtenerPreguntaActual();
+        const estado = obtenerEstadoActual();
+        const todas = document.querySelectorAll(".opcion");
+
+        todas.forEach(opcion => {
+          opcion.classList.remove("correcta", "incorrecta", "bloqueada");
+        });
+
+        mensajeEl.style.display = "none";
+        mensajeEl.innerHTML = "";
+        mensajeEl.className = "panel";
+
+        if (estado.modo === null) return;
+
+        todas.forEach(opcion => opcion.classList.add("bloqueada"));
+
+        const indiceCorrecto = preguntaActual.opciones.findIndex(op => op.correcta);
+
+        if (estado.modo === "mostrada") {
+          if (indiceCorrecto >= 0) {
+            todas[indiceCorrecto].classList.add("correcta");
+          }
+          mensajeEl.className = "panel info";
+          mensajeEl.style.display = "block";
+          mensajeEl.innerHTML = "<strong>Respuesta mostrada.</strong> Esta visualización no suma puntaje.";
+          return;
+        }
+
+        if (estado.modo === "respondida") {
+          const opcionSeleccionada = todas[estado.seleccion];
+          const esCorrecta = preguntaActual.opciones[estado.seleccion].correcta;
+
+          if (esCorrecta) {
+            opcionSeleccionada.classList.add("correcta");
+            mensajeEl.className = "panel ok";
+            mensajeEl.style.display = "block";
+            mensajeEl.innerHTML = "<strong>Correcto.</strong> La opción seleccionada coincide con la respuesta marcada en los datos.";
+          } else {
+            opcionSeleccionada.classList.add("incorrecta");
+            if (indiceCorrecto >= 0) {
+              todas[indiceCorrecto].classList.add("correcta");
+            }
+            mensajeEl.className = "panel error";
+            mensajeEl.style.display = "block";
+            mensajeEl.innerHTML = "<strong>Incorrecto.</strong> Ya quedó resaltada la opción correcta.";
+          }
+        }
+      }
+
+      window.reiniciarIntentoPregunta = function() {
+        estadoPreguntas[indiceActual] = { seleccion: null, modo: null };
+        renderizarPregunta();
+      };
+
+      window.mostrarRespuesta = function() {
+        const estado = obtenerEstadoActual();
+        if (estado.modo === null) {
+          estado.modo = "mostrada";
+          estado.seleccion = null;
+        }
+        renderizarPregunta();
+      };
+
+      window.reiniciarTodo = function() {
+        estadoPreguntas = window.bancoPreguntas.map(() => ({
+          seleccion: null,
+          modo: null
+        }));
+        indiceActual = 0;
+        renderizarPregunta();
+      };
+
+      window.siguientePregunta = function() {
+        if (indiceActual < window.bancoPreguntas.length - 1) {
+          indiceActual++;
+          renderizarPregunta();
+        }
+      };
+
+      window.anteriorPregunta = function() {
+        if (indiceActual > 0) {
+          indiceActual--;
+          renderizarPregunta();
+        }
+      };
+
+      function revisarFinal() {
+        if (contarRespondidas() === window.bancoPreguntas.length) {
+          const aciertos = contarAciertos();
+          mensajeEl.className = "panel info";
+          mensajeEl.style.display = "block";
+          mensajeEl.innerHTML = `<strong>Cuestionario completo.</strong> Obtuviste ${aciertos} de ${window.bancoPreguntas.length} aciertos en total.`;
+        }
+      }
+
+      motorActivo = { renderizarPregunta };
+      renderizarPregunta();
+    }
+
+    function cambiarBloque() {
+      cargarBloque();
+    }
+
+    poblarSelectorBloques();
+    cargarBloque();
+  </script>
+</body>
+</html>
